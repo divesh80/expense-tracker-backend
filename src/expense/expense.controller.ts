@@ -38,9 +38,9 @@ export class ExpenseController {
       category: string;
       paymentSource: string;
     },
-    @Request() req, // Ensure the user is attached to the request
+    @Request() req,
   ) {
-    const userId = req.user?.userId; // Extract userId from the JWT payload
+    const userId = req.user?.userId;
     if (!userId) {
       throw new BadRequestException('User ID is missing');
     }
@@ -60,7 +60,6 @@ export class ExpenseController {
       category?: string;
       paymentSource?: string;
     },
-    @Request() req,
   ) {
     try {
       return await this.expenseService.updateExpense(id, data);

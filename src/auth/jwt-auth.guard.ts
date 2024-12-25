@@ -6,13 +6,6 @@ import {
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 
-interface JwtPayload {
-  id: string;
-  email: string;
-  iat?: number;
-  exp?: number;
-}
-
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   private readonly JWT_SECRET = process.env.JWT_SECRET || 'abcdefghijain';
@@ -32,7 +25,7 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
-      const decoded = jwt.verify(token, this.JWT_SECRET) as JwtPayload; // Explicitly cast to JwtPayload
+      const decoded = jwt.verify(token, this.JWT_SECRET);
       if (!decoded) {
         throw new UnauthorizedException('Invalid token payload');
       }

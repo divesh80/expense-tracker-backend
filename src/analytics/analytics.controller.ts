@@ -7,12 +7,12 @@ import {
   Request,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ExpenseService } from 'src/expense/expense.service';
+import { AnalyticsService } from './analytics.service';
 
 @Controller('analytics')
 @UseGuards(JwtAuthGuard)
 export class AnalyticsController {
-  constructor(private readonly expenseService: ExpenseService) {}
+  constructor(private readonly analyticsService: AnalyticsService) {}
 
   // Utility to parse and validate date ranges
   private parseDateRange(
@@ -39,12 +39,11 @@ export class AnalyticsController {
   ) {
     const { startDate: validStartDate, endDate: validEndDate } =
       this.parseDateRange(startDate, endDate);
-    const userId = req.user.userId; // Extract user ID from the request
 
-    const data = await this.expenseService.getCategoryWiseExpenses(
+    const data = await this.analyticsService.getCategoryWiseExpenses(
       validStartDate,
       validEndDate,
-      userId,
+      req.user.userId,
     );
     return {
       data,
@@ -63,12 +62,11 @@ export class AnalyticsController {
   ) {
     const { startDate: validStartDate, endDate: validEndDate } =
       this.parseDateRange(startDate, endDate);
-    const userId = req.user.userId;
 
-    const data = await this.expenseService.getMonthlyTotals(
+    const data = await this.analyticsService.getMonthlyTotals(
       validStartDate,
       validEndDate,
-      userId,
+      req.user.userId,
     );
     return {
       data,
@@ -87,12 +85,11 @@ export class AnalyticsController {
   ) {
     const { startDate: validStartDate, endDate: validEndDate } =
       this.parseDateRange(startDate, endDate);
-    const userId = req.user.userId;
 
-    const data = await this.expenseService.getPaymentSourceDistribution(
+    const data = await this.analyticsService.getPaymentSourceDistribution(
       validStartDate,
       validEndDate,
-      userId,
+      req.user.userId,
     );
     return {
       data,
@@ -111,12 +108,11 @@ export class AnalyticsController {
   ) {
     const { startDate: validStartDate, endDate: validEndDate } =
       this.parseDateRange(startDate, endDate);
-    const userId = req.user.userId;
 
-    const data = await this.expenseService.getExpenseTrends(
+    const data = await this.analyticsService.getExpenseTrends(
       validStartDate,
       validEndDate,
-      userId,
+      req.user.userId,
     );
     return {
       data,
@@ -135,12 +131,11 @@ export class AnalyticsController {
   ) {
     const { startDate: validStartDate, endDate: validEndDate } =
       this.parseDateRange(startDate, endDate);
-    const userId = req.user.userId;
 
-    const data = await this.expenseService.getSummary(
+    const data = await this.analyticsService.getSummary(
       validStartDate,
       validEndDate,
-      userId,
+      req.user.userId,
     );
     return {
       data,
@@ -159,12 +154,11 @@ export class AnalyticsController {
   ) {
     const { startDate: validStartDate, endDate: validEndDate } =
       this.parseDateRange(startDate, endDate);
-    const userId = req.user.userId;
 
-    const data = await this.expenseService.getWeeklyTotals(
+    const data = await this.analyticsService.getWeeklyTotals(
       validStartDate,
       validEndDate,
-      userId,
+      req.user.userId,
     );
     return {
       data,
@@ -183,12 +177,11 @@ export class AnalyticsController {
   ) {
     const { startDate: validStartDate, endDate: validEndDate } =
       this.parseDateRange(startDate, endDate);
-    const userId = req.user.userId;
 
-    const data = await this.expenseService.getDailyTotals(
+    const data = await this.analyticsService.getDailyTotals(
       validStartDate,
       validEndDate,
-      userId,
+      req.user.userId,
     );
     return {
       data,
