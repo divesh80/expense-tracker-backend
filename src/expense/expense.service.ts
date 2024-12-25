@@ -8,7 +8,7 @@ export class ExpenseService {
 
   async getAllExpenses(userId: string) {
     return this.prisma.expense.findMany({
-      where: { userId },
+      where: { userId, isDeleted: false },
       orderBy: { date: 'desc' },
     });
   }
@@ -29,6 +29,7 @@ export class ExpenseService {
     return this.prisma.expense.create({
       data: {
         ...data,
+        isDeleted: false,
         date: formattedDate,
         userId,
       },
@@ -45,7 +46,9 @@ export class ExpenseService {
       paymentSource: string;
     }>,
   ): Promise<Expense> {
-    const expense = await this.prisma.expense.findUnique({ where: { id } });
+    const expense = await this.prisma.expense.findUnique({
+      where: { id, isDeleted: false },
+    });
 
     if (!expense) {
       throw new NotFoundException('Expense not found');
@@ -53,6 +56,7 @@ export class ExpenseService {
 
     const updateData: Partial<Expense> = {
       ...data,
+      isDeleted: false,
       date: data.date ? new Date(data.date) : undefined,
     };
 
@@ -71,6 +75,9 @@ export class ExpenseService {
       throw new NotFoundException('Expense not found or unauthorized');
     }
 
-    return this.prisma.expense.delete({ where: { id: expenseId } });
+    return this.prisma.expense.update({
+      where: { id: expenseId },
+      data: { isDeleted: true },
+    });
   }
 }

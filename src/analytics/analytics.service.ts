@@ -15,6 +15,7 @@ export class AnalyticsService {
       _sum: { amount: true },
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -32,6 +33,7 @@ export class AnalyticsService {
     const expenses = await this.prisma.expense.findMany({
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -65,6 +67,7 @@ export class AnalyticsService {
       _count: { paymentSource: true },
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -82,6 +85,7 @@ export class AnalyticsService {
     const expenses = await this.prisma.expense.findMany({
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -103,6 +107,7 @@ export class AnalyticsService {
       _sum: { amount: true },
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -115,6 +120,7 @@ export class AnalyticsService {
       _sum: { amount: true },
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -127,6 +133,7 @@ export class AnalyticsService {
       _count: { paymentSource: true },
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -154,6 +161,7 @@ export class AnalyticsService {
     const expenses = await this.prisma.expense.findMany({
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,
@@ -199,6 +207,7 @@ export class AnalyticsService {
     const expenses = await this.prisma.expense.findMany({
       where: {
         userId,
+        isDeleted: false,
         date: {
           gte: startDate,
           lte: endDate,

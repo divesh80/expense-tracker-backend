@@ -8,10 +8,11 @@ generator client {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  phoneNumber String  @unique
-  password  String
-  expenses  Expense[] // One-to-Many relation with Expense
+  id          String    @id @default(uuid())
+  phoneNumber String    @unique
+  password    String
+  expenses    Expense[] // One-to-Many relation with Expense
+  isDeleted   Boolean   @default(false) // Soft delete flag
 }
 
 model Expense {
@@ -23,4 +24,5 @@ model Expense {
   paymentSource String
   userId       String
   user         User     @relation(fields: [userId], references: [id]) // Foreign key relation
+  isDeleted    Boolean  @default(false) // Soft delete flag
 }

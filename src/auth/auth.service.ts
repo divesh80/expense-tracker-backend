@@ -28,6 +28,7 @@ export class AuthService {
     return this.prisma.user.create({
       data: {
         phoneNumber,
+        isDeleted: false,
         password: hashedPassword,
       },
     });
@@ -36,7 +37,7 @@ export class AuthService {
   // Login an existing user
   async login(phoneNumber: string, password: string) {
     const user = await this.prisma.user.findUnique({
-      where: { phoneNumber },
+      where: { phoneNumber, isDeleted: false },
     });
 
     if (!user) {
