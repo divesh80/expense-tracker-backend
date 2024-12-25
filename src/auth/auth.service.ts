@@ -11,7 +11,7 @@ import * as jwt from 'jsonwebtoken';
 export class AuthService {
   constructor(private prisma: PrismaService) {}
 
-  private readonly JWT_SECRET = process.env.JWT_SECRET || 'abcdefghijain';
+  private readonly JWT_SECRET = process.env.JWT_SECRET;
 
   // Register a new user
   async register(phoneNumber: string, password: string) {
