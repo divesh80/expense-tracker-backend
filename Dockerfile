@@ -1,5 +1,4 @@
-# Backend Dockerfile
-FROM node:18
+FROM node:22
 
 # Set working directory
 WORKDIR /app
@@ -7,10 +6,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies in the container
 RUN npm install
-
-RUN npm rebuild bcrypt --build-from-source
 
 # Copy the rest of the application
 COPY . .

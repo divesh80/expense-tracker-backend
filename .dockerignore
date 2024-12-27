@@ -1,0 +1,32 @@
+# Ignore node_modules
+node_modules
+
+# Ignore build outputs
+dist
+build
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore logs
+logs
+*.log
+
+# Ignore temp directories
+.temp
+.tmp
+
+# Ignore IDE files
+.idea
+.vscode
+
+# Ignore OS files
+.DS_Store
+
+# Ignore test coverage
+coverage
+.nyc_output
+
+# add prisma files
+!prisma/**
