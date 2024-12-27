@@ -22,16 +22,19 @@ export class AuthService {
     if (existingUser) {
       throw new ConflictException('Phone number already registered');
     }
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    return this.prisma.user.create({
-      data: {
-        phoneNumber,
-        isDeleted: false,
-        password: hashedPassword,
-      },
-    });
+      return this.prisma.user.create({
+        data: {
+          phoneNumber,
+          isDeleted: false,
+          password: hashedPassword,
+        },
+      });
+    } catch (err) {
+      throw new Error(`Internal server error: ${JSON.stringify(err)}`);
+    }
   }
 
   // Login an existing user
